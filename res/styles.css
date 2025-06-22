@@ -1,0 +1,59 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  background-color: black;
+  color: lightgrey;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+h1 {
+  color:  #0FFF50;
+  font-size: 12vw;
+}
+
+button {
+  background-color: #0FFF50;
+  color: black;
+  border: solid 2px #0FFF50;
+  padding: 15px 30px;
+  font-size: 3vw;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  font-size: 200%;
+  color: #333;
+}
+
+div.left {
+  float: left;
+  margin: 5px 20px;
+}
+
+div.right {
+  float: right;
+  margin: 5px 20px;
+}
+
+@media (max-width: 600px) {
+  button {
+    font-size: 6vw;
+    padding: 10px 20px;
+  }
+}
