@@ -29,6 +29,20 @@
         acc[name] = value;
         return acc;
       }, {});
+      if (!cookies.queer) {
+        cookies.queer = 'false'; // Default value if not set
+      } else {
+        const activeElement = document.getElementsByClassName('game active')[0];
+        const inactiveElement = document.getElementsByClassName('game inactive')[0];
+        if (activeElement) {
+          activeElement.classList.remove('active');
+          activeElement.classList.add('inactive');
+        }
+        if (inactiveElement) {
+          inactiveElement.classList.remove('inactive');
+          inactiveElement.classList.add('active');
+        }
+      }
       let isQueer = cookies.queer === 'true';
 
       var socket = io();
