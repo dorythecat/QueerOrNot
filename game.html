@@ -17,8 +17,8 @@
 
     <div class="game inactive">
       <ul id="messages"></ul>
-      <form id="form" action="javascript:void(0);">
-        <input id="input" type="text" autocomplete="off" placeholder="Type your answer here..." required />
+      <form id="chatform" action="javascript:void(0);">
+        <input id="chatinput" type="text" autocomplete="off" placeholder="Type your answer here..." required />
         <button>Send</button>
       </form>
     </div>
@@ -47,16 +47,15 @@
 
       var socket = io();
 
-      var form = document.getElementById('form');
-      var input = document.getElementById('input');
+      var form = document.getElementById('chatform');
+      var input = document.getElementById('chatinput');
 
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        if (input.value) {
-          socket.emit('chat message', input.value);
-          socket.emit('isQueer', isQueer);
-          input.value = '';
-        }
+        // No need to check if input is empty, as the input field is required
+        socket.emit('chat message', input.value);
+        socket.emit('isQueer', isQueer);
+        input.value = '';
       });
     </script>
   </body>

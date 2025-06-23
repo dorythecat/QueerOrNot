@@ -113,11 +113,37 @@ button:hover {
   box-shadow: 0 6px 12px #0FFF50;
 }
 
-#form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
+form#chatform {
+  padding: 0.25rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  box-sizing: border-box;
+}
+
+input#chatinput {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+}
+
+input#chatinput:focus {
+  outline: none;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+form#form > button {
+  border: none;
+  padding: 0 1rem;
+  margin: 0.25rem;
+  border-radius: 5px;
+  outline: none;
+  display: inline-block;
 }
 
 @media (max-width: 1400px) {
