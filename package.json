@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "The social deduction game abou queerness",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
   }
 }

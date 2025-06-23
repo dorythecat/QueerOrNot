@@ -16,6 +16,34 @@
     </div>
 
     <div class="game inactive">
+      <ul id="messages"></ul>
+      <form id="form" action="javascript:void(0);">
+        <input id="input" type="text" autocomplete="off" placeholder="Type your answer here..." required />
+        <button>Send</button>
+      </form>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      let cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [name, value] = cookie.trim().split('=');
+        acc[name] = value;
+        return acc;
+      }, {});
+      let isQueer = cookies.queer === 'true';
+
+      var socket = io();
+
+      var form = document.getElementById('form');
+      var input = document.getElementById('input');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value) {
+          socket.emit('chat message', input.value);
+          socket.emit('isQueer', isQueer);
+          input.value = '';
+        }
+      });
+    </script>
   </body>
 </html>

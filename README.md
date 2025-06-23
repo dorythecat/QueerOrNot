@@ -11,5 +11,5 @@ To run this web app, you will need Node.js and npm installed on your computer. O
 
 ```
 npm install
-npm index.js
+node index.js
 ```

@@ -18,4 +18,10 @@ function startGame(queer) {
     inactiveElement.classList.remove("inactive");
     inactiveElement.classList.add("active");
   }
+
+  if (queer) {
+    document.cookie = "queer=true";
+  } else {
+    document.cookie = "queer=false";
+  }
 }
