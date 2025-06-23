@@ -20,6 +20,10 @@ footer {
 
 h1 {
   color:  #0FFF50;
+  font-size: 6vw;
+}
+
+h1.title {
   font-size: 12vw;
 }
 
