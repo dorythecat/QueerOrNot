@@ -29,14 +29,19 @@ h1.title {
   font-size: 12vw;
 }
 
-button {
+a#startButton {
   background-color: #0FFF50;
   color: black;
-  border: solid 2px #0FFF50;
   padding: 15px 30px;
   font-size: 3vw;
-  cursor: pointer;
   border-radius: 10px;
+  margin: 20px auto;
+  display: inline-block;
+  transition: box-shadow 0.2s;
+}
+
+a#startButton:hover {
+  box-shadow: 0 6px 12px #0FFF50;
 }
 
 a {
@@ -91,7 +96,7 @@ div.answer {
 }
 
 @media (max-width: 600px) {
-  button {
+  a#startButton {
     font-size: 6vw;
     padding: 10px 20px;
   }
