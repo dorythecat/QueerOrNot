@@ -29,6 +29,13 @@ h1.title {
   font-size: 12vw;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 200%;
+  color: #333;
+}
+
 a#startButton {
   background-color: #0FFF50;
   color: black;
@@ -42,13 +49,6 @@ a#startButton {
 
 a#startButton:hover {
   box-shadow: 0 6px 12px #0FFF50;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  font-size: 200%;
-  color: #333;
 }
 
 a.mainpage {
@@ -87,6 +87,14 @@ div.answer {
   border-radius: 10px;
   margin-top: 10px;
   display: none;
+}
+
+div.game {
+  display: none;
+}
+
+div.game.active {
+  display: block;
 }
 
 @media (max-width: 1400px) {
