@@ -1,9 +1,12 @@
+* {
+  text-align: center;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 20px;
-  text-align: center;
   background-color: black;
   color: lightgrey;
 }
@@ -14,7 +17,6 @@ footer {
   left: 0;
   width: 100%;
   color: white;
-  text-align: center;
   padding: 10px 0;
 }
 
@@ -40,9 +42,15 @@ button {
 a {
   text-decoration: none;
   color: inherit;
-  text-align: center;
   font-size: 200%;
   color: #333;
+}
+
+a.mainpage {
+  float: left;
+  padding: 10px;
+  border-radius: 10px;
+  color: #0FFF50;
 }
 
 div.left {
@@ -55,9 +63,45 @@ div.right {
   margin: 5px 20px;
 }
 
+div.faq {
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+a.question {
+  background-color: #0FFF50;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+  display: block;
+}
+
+div.answer {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: none;
+}
+
+@media (max-width: 1400px) {
+  a.mainpage {
+    float: none;
+  }
+}
+
 @media (max-width: 600px) {
   button {
     font-size: 6vw;
     padding: 10px 20px;
+  }
+
+  a {
+    font-size: 150%;
+  }
+
+  a.mainpage {
+    font-size: 100%;
+    padding: 5px;
   }
 }
