@@ -1,0 +1,8 @@
+{
+  "name": "queer-or-not",
+  "version": "0.0.1",
+  "description": "The social deduction game abou queerness",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
