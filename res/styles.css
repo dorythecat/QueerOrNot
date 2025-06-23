@@ -97,6 +97,22 @@ div.game.active {
   display: block;
 }
 
+button {
+  background-color: #0FFF50;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 4vw;
+  margin: 20px;
+  transition: box-shadow 0.2s;
+}
+
+button:hover {
+  box-shadow: 0 6px 12px #0FFF50;
+}
+
 @media (max-width: 1400px) {
   a.mainpage {
     float: none;
@@ -116,5 +132,10 @@ div.game.active {
   a.mainpage {
     font-size: 100%;
     padding: 5px;
+  }
+
+  button {
+    font-size: 8vw;
+    padding: 8px 16px;
   }
 }
