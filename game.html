@@ -43,12 +43,11 @@
           inactiveElement.classList.add('active');
         }
       }
-      let isQueer = cookies.queer === 'true';
 
       var socket = io(window.location.host, {
         reconnectionDelayMax: 10000,
         query: {
-          isQueer: isQueer
+          isQueer: cookies.queer === 'true';
         }
       });
 
