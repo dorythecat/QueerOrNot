@@ -48,7 +48,12 @@ io.on('connection', (socket) => {
     console.log('users: ', users);
     console.log('unpairedUsers: ', unpairedUsers);
     console.log('pairs: ', pairs);
-    io.emit('chat message', msg);
+    // Broadcast the message to the paired user
+    const pair = pairs.find(pair => pair.user1 === socket.id || pair.user2 === socket.id);
+    if (pair) {
+      const partnerId = pair.user1 === socket.id ? pair.user2 : pair.user1;
+      io.to(partnerId).emit('chat message', msg);
+    }
   });
 });
 
