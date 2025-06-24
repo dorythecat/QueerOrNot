@@ -17,6 +17,10 @@
       <button onclick="startGame(false)">No</button>
     </div>
 
+    <div class="game waiting">
+      <div class="loader"></div>
+    </div>
+
     <div class="game inactive">
       <ul id="messages"></ul>
       <form id="chatform" action="javascript:void(0);">
@@ -33,14 +37,13 @@
       }, {});
       if (cookies.queer) {
         const activeElement = document.getElementsByClassName('game active')[0];
-        const inactiveElement = document.getElementsByClassName('game inactive')[0];
+        const waitingElement = document.getElementsByClassName('game waiting')[0];
         if (activeElement) {
           activeElement.classList.remove('active');
           activeElement.classList.add('inactive');
         }
-        if (inactiveElement) {
-          inactiveElement.classList.remove('inactive');
-          inactiveElement.classList.add('active');
+        if (waitingElement) {
+          waitingElement.classList.add('active');
         }
       }
 
@@ -81,6 +84,20 @@
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
       });
-    </script>
+
+      socket.on('pair', function(pair) {
+        const waitingElement = document.getElementsByClassName('game waiting')[0];
+        const inactiveElement = document.getElementsByClassName('game inactive')[1];
+        if (waitingElement) {
+          waitingElement.classList.remove('active');
+          waitingElement.classList.add('inactive');
+        }
+
+        if (inactiveElement) {
+          inactiveElement.classList.remove('inactive');
+          inactiveElement.classList.add('active');
+        }
+      });
+   </script>
   </body>
 </html>

@@ -218,3 +218,28 @@ li#own {
     left: 0;
   }
 }
+
+.loader {
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 3vw;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  background: radial-gradient(ellipse closest-side,#000,#0000) right/calc(200% - 1em) 100%;
+  animation: l24 2s infinite alternate linear;
+}
+.loader::before {
+  content: "Waiting for other players...";
+  line-height: 1em;
+  color: #0000;
+  background: inherit;
+  background-image: radial-gradient(ellipse closest-side,#0FFF50,#000);
+  -webkit-background-clip:text;
+          background-clip:text;
+}
+
+@keyframes l24{
+  100%{background-position: left}
+}
