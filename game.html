@@ -47,7 +47,12 @@
       }
       let isQueer = cookies.queer === 'true';
 
-      var socket = io();
+      var socket = io(window.location.host, {
+        reconnectionDelayMax: 10000,
+        query: {
+          isQueer: isQueer
+        }
+      });
 
       var form = document.getElementById('chatform');
       var input = document.getElementById('chatinput');
@@ -58,7 +63,6 @@
         e.preventDefault();
         // No need to check if input is empty, as the input field is required
         socket.emit('chat message', input.value);
-        socket.emit('isQueer', isQueer);
         lastMessage = input.value;
 
         var item = document.createElement('li');
