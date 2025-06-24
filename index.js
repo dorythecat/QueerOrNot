@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
     const pair = pairs.find(pair => pair.user1 === socket.id || pair.user2 === socket.id);
     if (pair) {
       const partnerId = pair.user1 === socket.id ? pair.user2 : pair.user1;
-      io.to(partnerId).emit('chat message', msg);
+      io.to(partnerId).emit('chat message', msg, socket.handshake.query.isQueer);
     }
   });
 });

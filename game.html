@@ -74,7 +74,7 @@
         input.value = '';
       });
 
-      socket.on('chat message', function(msg) {
+      socket.on('chat message', function(msg, isQueer) {
         if (msg === lastMessage) { // Ignore messages we've just sent
           lastMessage = '';
           return;
@@ -83,6 +83,8 @@
         item.textContent = msg;
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
+
+        console.log('Received message:', msg, 'Is queer:', isQueer);
       });
 
       socket.on('pair', function(pair) {
