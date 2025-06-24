@@ -6,6 +6,8 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+const maxPairedTime = 60 * 1000; // 1 minute in ms
+
 app.use(express.static(__dirname));
 app.use(express.static(__dirname + '/res'));
 
@@ -27,6 +29,18 @@ io.on('connection', (socket) => {
     pairs.push({ user1, user2 });
     io.to(user1).emit('pair', { partnerId: user2 });
     io.to(user2).emit('pair', { partnerId: user1 });
+    console.log(`Paired ${user1} with ${user2}`);
+    setTimeout(() => {
+      // Automatically unpair after maxPairedTime if they are still paired
+      const pairIndex = pairs.findIndex(pair => pair.user1 === user1 && pair.user2 === user2);
+      if (pairIndex !== -1) {
+        pairs.splice(pairIndex, 1);
+        unpairedUsers.push(user1, user2);
+        io.to(user1).emit('unpair', {});
+        io.to(user2).emit('unpair', {});
+        console.log(`Unpaired ${user1} and ${user2} (timeout)`);
+      }
+    }, maxPairedTime);
   }
   socket.on('disconnect', () => {
     console.log('user disconnected');
@@ -37,6 +51,7 @@ io.on('connection', (socket) => {
         const otherUser = pair.user1 === socket.id ? pair.user2 : pair.user1;
         unpairedUsers.push(otherUser);
         io.to(otherUser).emit('unpair', {});
+        console.log(`Unpaired ${socket.id} and ${otherUser} (disconnected)`);
         return false; // Remove this pair
       } return true; // Keep this pair
     });
