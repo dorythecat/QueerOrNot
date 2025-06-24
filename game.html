@@ -31,9 +31,7 @@
         acc[name] = value;
         return acc;
       }, {});
-      if (!cookies.queer) {
-        cookies.queer = 'false'; // Default value if not set
-      } else {
+      if (cookies.queer) {
         const activeElement = document.getElementsByClassName('game active')[0];
         const inactiveElement = document.getElementsByClassName('game inactive')[0];
         if (activeElement) {
