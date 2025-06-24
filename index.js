@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
       if (pair.user1 === socket.id || pair.user2 === socket.id) {
         const otherUser = pair.user1 === socket.id ? pair.user2 : pair.user1;
         unpairedUsers.push(otherUser);
-        io.to(otherUser).emit('unpair', { message: 'Your partner has disconnected.' });
+        io.to(otherUser).emit('unpair', {});
         return false; // Remove this pair
       } return true; // Keep this pair
     });

@@ -98,6 +98,21 @@
           inactiveElement.classList.add('active');
         }
       });
-   </script>
+
+      socket.on('unpair', function() {
+        const waitingElement = document.getElementsByClassName('game waiting')[0];
+        const activeElement = document.getElementsByClassName('game active')[0];
+        if (waitingElement) {
+          waitingElement.classList.remove('inactive');
+          waitingElement.classList.add('active');
+        }
+        if (activeElement) {
+          activeElement.classList.remove('active');
+          activeElement.classList.add('inactive');
+        }
+
+        messages.innerHTML = ''; // Clear chat messages
+      });
+    </script>
   </body>
 </html>
