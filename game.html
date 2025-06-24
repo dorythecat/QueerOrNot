@@ -52,12 +52,33 @@
       var form = document.getElementById('chatform');
       var input = document.getElementById('chatinput');
 
+      var lastMessage = '';
+
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         // No need to check if input is empty, as the input field is required
         socket.emit('chat message', input.value);
         socket.emit('isQueer', isQueer);
+        lastMessage = input.value;
+
+        var item = document.createElement('li');
+        item.id = 'own';
+        item.textContent = input.value;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+
         input.value = '';
+      });
+
+      socket.on('chat message', function(msg) {
+        if (msg === lastMessage) { // Ignore messages we've just sent
+          lastMessage = '';
+          return;
+        }
+        var item = document.createElement('li');
+        item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
       });
     </script>
   </body>
