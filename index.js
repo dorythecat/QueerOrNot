@@ -6,7 +6,20 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+const fs = require('node:fs');
+
 const maxPairedTime = 60 * 1000; // 1 minute in ms
+const debugMode = false; // Set to true to enable debug logging
+
+async function log(message) {
+  const timestamp = new Date().toISOString();
+  fs.appendFile('server.log', `[${timestamp}] - ${message}\n`, (err) => {
+    if (err) {
+      console.error('Error writing to log file:', err);
+    }
+  });
+  if (debugMode) console.log(`[${timestamp}] - ${message}`);
+}
 
 app.use(express.static(__dirname));
 app.use(express.static(__dirname + '/res'));
@@ -20,7 +33,7 @@ let unpairedUsers = [];
 let pairs = [];
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  log('User connected: ' + socket.id + ' from ' + socket.handshake.address);
   users.push(socket.id);
   unpairedUsers.push(socket.id);
   if (unpairedUsers.length >= 2) {
@@ -29,7 +42,7 @@ io.on('connection', (socket) => {
     pairs.push({ user1, user2 });
     io.to(user1).emit('pair', { partnerId: user2 });
     io.to(user2).emit('pair', { partnerId: user1 });
-    console.log(`Paired ${user1} with ${user2}`);
+    log(`Paired ${user1} with ${user2}`);
     setTimeout(() => {
       // Automatically unpair after maxPairedTime if they are still paired
       const pairIndex = pairs.findIndex(pair => pair.user1 === user1 && pair.user2 === user2);
@@ -38,12 +51,12 @@ io.on('connection', (socket) => {
         unpairedUsers.push(user1, user2);
         io.to(user1).emit('unpair', {});
         io.to(user2).emit('unpair', {});
-        console.log(`Unpaired ${user1} and ${user2} (timeout)`);
+        log(`Unpaired ${user1} and ${user2} (timeout)`);
       }
     }, maxPairedTime);
   }
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    log('User disconnected: ' + socket.id);
     users = users.filter(user => user !== socket.id);
     unpairedUsers = unpairedUsers.filter(user => user !== socket.id);
     pairs = pairs.filter(pair => {
@@ -51,18 +64,13 @@ io.on('connection', (socket) => {
         const otherUser = pair.user1 === socket.id ? pair.user2 : pair.user1;
         unpairedUsers.push(otherUser);
         io.to(otherUser).emit('unpair', {});
-        console.log(`Unpaired ${socket.id} and ${otherUser} (disconnected)`);
+        log(`Unpaired ${socket.id} and ${otherUser} (disconnected)`);
         return false; // Remove this pair
       } return true; // Keep this pair
     });
   });
   socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    console.log('isQueer: ' + socket.handshake.query.isQueer);
-    console.log('user id: ' + socket.id);
-    console.log('users: ', users);
-    console.log('unpairedUsers: ', unpairedUsers);
-    console.log('pairs: ', pairs);
+    log('Message sent by: ' + socket.id + ' - ' + msg);
     // Broadcast the message to the paired user
     const pair = pairs.find(pair => pair.user1 === socket.id || pair.user2 === socket.id);
     if (pair) {
@@ -75,4 +83,5 @@ io.on('connection', (socket) => {
 server.listen(8080, () => {
   console.log('listening on *:8080');
   console.log('Open http://localhost:8080 in your browser to test the app');
+  log('Server started on port 8080');
 });
