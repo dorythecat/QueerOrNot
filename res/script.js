@@ -9,14 +9,13 @@ function answer(id) {
 
 function startGame(isQueer) {
   const activeElement = document.getElementsByClassName("game active")[0];
-  const inactiveElement = document.getElementsByClassName("game inactive")[0];
+  const waitingElement = document.getElementsByClassName("game waiting")[0];
   if (activeElement) {
     activeElement.classList.remove("active");
     activeElement.classList.add("inactive");
   }
-  if (inactiveElement) {
-    inactiveElement.classList.remove("inactive");
-    inactiveElement.classList.add("active");
+  if (waitingElement) {
+    waitingElement.classList.add("active");
   }
 
   if (isQueer) {
