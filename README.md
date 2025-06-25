@@ -13,3 +13,5 @@ To run this web app, you will need Node.js and npm installed on your computer. O
 npm install
 node index.js
 ```
+
+After this, you'll be abe to acess the game at `http://localhost:8080`. You can also deploy this app to a cloud service, but I haven't personally tested that.
