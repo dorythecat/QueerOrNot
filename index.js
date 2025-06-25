@@ -17,7 +17,7 @@ async function log(message) {
   const timestamp = new Date().toISOString();
   fs.appendFile(logFile, `[${timestamp}] - ${message}\n`, (err) => {
     if (err) {
-      console.error('Error writing to log file:', err);
+      console.error(`Error writing to log file: ${err}`);
     }
   });
   if (debugMode) console.log(`[${timestamp}] - ${message}`);
@@ -35,7 +35,7 @@ let unpairedUsers = [];
 let pairs = [];
 
 io.on('connection', (socket) => {
-  log('User connected: ' + socket.id + ' from ' + socket.handshake.address);
+  log(`User connected: ${socket.id} from ${socket.handshake.address}`);
   users.push(socket.id);
   unpairedUsers.push(socket.id);
   if (unpairedUsers.length >= 2) {
@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
     }, maxPairedTime);
   }
   socket.on('disconnect', () => {
-    log('User disconnected: ' + socket.id);
+    log(`User disconnected: ${socket.id}`);
     users = users.filter(user => user !== socket.id);
     unpairedUsers = unpairedUsers.filter(user => user !== socket.id);
     pairs = pairs.filter(pair => {
@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
     });
   });
   socket.on('chat message', (msg) => {
-    log('Message sent by: ' + socket.id + ' - ' + msg);
+    log(`Message sent by: ${socket.id} - ${msg}`);
     // Broadcast the message to the paired user
     const pair = pairs.find(pair => pair.user1 === socket.id || pair.user2 === socket.id);
     if (pair) {
@@ -83,7 +83,7 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port, () => {
-  console.log('listening on *:' + port);
-  console.log('Open http://localhost:' + port + ' in your browser to test the app');
-  log('Server started on port ' + port);
+  console.log(`listening on *:${port}`);
+  console.log(`Open http://localhost:${port} in your browser to test the app`);
+  log(`Server started on port ${port} successfully`);
 });
