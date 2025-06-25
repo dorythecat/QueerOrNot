@@ -125,11 +125,7 @@
       });
 
       function endGame(isQueer) {
-        if (isQueer === (cookies.queer === 'true')) {
-          alert('You guessed correctly!');
-        } else {
-          alert('You guessed wrong!');
-        }
+        alert('You guessed ' + (isQueer === (cookies.queer === 'true') ? 'correctly' : 'wrong') + '!');
         reload();
       }
     </script>
