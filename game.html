@@ -126,7 +126,7 @@
 
       function endGame(isQueer) {
         alert('You guessed ' + (isQueer === (cookies.queer === 'true') ? 'correctly' : 'wrong') + '!');
-        reload();
+        window.location.reload();
       }
     </script>
   </body>
