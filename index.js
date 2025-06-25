@@ -10,10 +10,12 @@ const fs = require('node:fs');
 
 const maxPairedTime = 60 * 1000; // 1 minute in ms
 const debugMode = false; // Set to true to enable debug logging
+const logFile = 'server.log'; // Log file to store server logs
+const port = 8080; // Change this to your desired port
 
 async function log(message) {
   const timestamp = new Date().toISOString();
-  fs.appendFile('server.log', `[${timestamp}] - ${message}\n`, (err) => {
+  fs.appendFile(logFile, `[${timestamp}] - ${message}\n`, (err) => {
     if (err) {
       console.error('Error writing to log file:', err);
     }
@@ -80,8 +82,8 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(8080, () => {
-  console.log('listening on *:8080');
-  console.log('Open http://localhost:8080 in your browser to test the app');
-  log('Server started on port 8080');
+server.listen(port, () => {
+  console.log('listening on *:' + port);
+  console.log('Open http://localhost:' + port + ' in your browser to test the app');
+  log('Server started on port ' + port);
 });
