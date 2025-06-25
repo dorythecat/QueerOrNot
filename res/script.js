@@ -7,7 +7,7 @@ function answer(id) {
   }
 }
 
-function startGame(queer) {
+function startGame(isQueer) {
   const activeElement = document.getElementsByClassName("game active")[0];
   const inactiveElement = document.getElementsByClassName("game inactive")[0];
   if (activeElement) {
@@ -19,7 +19,7 @@ function startGame(queer) {
     inactiveElement.classList.add("active");
   }
 
-  if (queer) {
+  if (isQueer) {
     document.cookie = "queer=true";
   } else {
     document.cookie = "queer=false";
