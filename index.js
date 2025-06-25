@@ -74,4 +74,5 @@ io.on('connection', (socket) => {
 
 server.listen(8080, () => {
   console.log('listening on *:8080');
+  console.log('Open http://localhost:8080 in your browser to test the app');
 });
