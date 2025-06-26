@@ -11,6 +11,7 @@ const fs = require('node:fs');
 const maxPairedTime = 60 * 1000; // 1 minute in ms
 const debugMode = false; // Set to true to enable debug logging
 const logFile = 'server.log'; // Log file to store server logs
+const reportFile = 'reports.txt'; // File to store user reports
 const port = 8080; // Change this to your desired port
 
 async function log(message) {
@@ -77,7 +78,24 @@ io.on('connection', (socket) => {
     if (pair) {
       const partnerId = pair.user1 === socket.id ? pair.user2 : pair.user1;
       io.to(partnerId).emit('chat message', msg, socket.handshake.query.isQueer);
-    }
+    } else log(`ERROR: Message sent by ${socket.id} without a partner`);
+  });
+  socket.on('report', (message) => {
+    const pair = pairs.find(pair => pair.user1 === socket.id || pair.user2 === socket.id);
+    const ip = socket.handshake.address;
+    if (pair) {
+      const partnerId = pair.user1 === socket.id ? pair.user2 : pair.user1;
+      const partnerIp = io.sockets.sockets.get(partnerId)?.handshake.address || 'unknown';
+      fs.appendFile(reportFile, `Report from ${ip} against ${partnerIp}: ${message}\n`, (err) => {
+        if (err) console.error(`Error writing to report file: ${err}`);
+
+        unpairedUsers.push(socket.id, partnerId);
+        io.to(socket.id).emit('unpair', {});
+        io.to(partnerId).emit('unpair', {});
+        pairs = pairs.filter(p => p.user1 !== socket.id && p.user2 !== socket.id);
+        log(`Unpaired ${ip} and ${partnerIp} (report filed)`);
+      });
+    } else log(`ERROR: Report attempt by ${ip} without a partner`);
   });
 });
 

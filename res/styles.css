@@ -115,6 +115,18 @@ button:hover {
   box-shadow: 0 6px 12px #0FFF50;
 }
 
+button.report {
+  position: fixed;
+  right: 5%;
+  background-color: #f44336;
+  color: white;
+  font-size: 2vw;
+}
+
+button.report:hover {
+  box-shadow: 0 6px 12px #f44336;
+}
+
 form#chatform {
   padding: 0.25rem;
   position: fixed;
@@ -185,6 +197,10 @@ li#own {
   a.mainpage {
     float: none;
   }
+
+  button.report {
+    font-size: 4vw;
+  }
 }
 
 @media (max-width: 600px) {
@@ -205,6 +221,13 @@ li#own {
   button {
     font-size: 8vw;
     padding: 8px 16px;
+  }
+
+  button.report {
+    right: 10%;
+    left: 10%;
+    font-size: 6vw;
+    padding: 5px 10px;
   }
 
   form#chatform {

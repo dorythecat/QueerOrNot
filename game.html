@@ -21,6 +21,7 @@
     </div>
 
     <div class="game inactive">
+      <button class="report" onclick="report()">Report</button>
       <ul id="messages"></ul>
       <form id="chatform" action="javascript:void(0);">
         <input id="chatinput" type="text" autocomplete="off" placeholder="Type your answer here..." required />
@@ -138,6 +139,14 @@
       function endGame(isQueer) {
         alert('You guessed ' + (isQueer === (cookies.queer === 'true') ? 'correctly' : 'wrong') + '!');
         window.location.reload();
+      }
+
+      function report() {
+        const reportText = prompt("Please enter your report:");
+        if (reportText) {
+          socket.emit('report', reportText);
+          alert("Thank you for your report!");
+        } else alert("Report cancelled.");
       }
     </script>
   </body>
