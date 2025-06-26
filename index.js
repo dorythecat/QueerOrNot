@@ -37,26 +37,28 @@ let pairs = [];
 io.on('connection', (socket) => {
   log(`User connected: ${socket.id} from ${socket.handshake.address}`);
   users.push(socket.id);
-  unpairedUsers.push(socket.id);
-  if (unpairedUsers.length >= 2) {
-    const user1 = unpairedUsers.shift();
-    const user2 = unpairedUsers.shift();
-    pairs.push({ user1, user2 });
-    io.to(user1).emit('pair', { partnerId: user2 });
-    io.to(user2).emit('pair', { partnerId: user1 });
-    log(`Paired ${user1} with ${user2}`);
-    setTimeout(() => {
-      // Automatically unpair after maxPairedTime if they are still paired
-      const pairIndex = pairs.findIndex(pair => pair.user1 === user1 && pair.user2 === user2);
-      if (pairIndex !== -1) {
-        pairs.splice(pairIndex, 1);
-        unpairedUsers.push(user1, user2);
-        io.to(user1).emit('unpair', {});
-        io.to(user2).emit('unpair', {});
-        log(`Unpaired ${user1} and ${user2} (timeout)`);
-      }
-    }, maxPairedTime);
-  }
+  socket.on('pair', () => {
+    unpairedUsers.push(socket.id);
+    if (unpairedUsers.length >= 2) {
+      const user1 = unpairedUsers.shift();
+      const user2 = unpairedUsers.shift();
+      pairs.push({ user1, user2 });
+      io.to(user1).emit('pair', { partnerId: user2 });
+      io.to(user2).emit('pair', { partnerId: user1 });
+      log(`Paired ${user1} with ${user2}`);
+      setTimeout(() => {
+        // Automatically unpair after maxPairedTime if they are still paired
+        const pairIndex = pairs.findIndex(pair => pair.user1 === user1 && pair.user2 === user2);
+        if (pairIndex !== -1) {
+          pairs.splice(pairIndex, 1);
+          unpairedUsers.push(user1, user2);
+          io.to(user1).emit('unpair', {});
+          io.to(user2).emit('unpair', {});
+          log(`Unpaired ${user1} and ${user2} (timeout)`);
+        }
+      }, maxPairedTime);
+    }
+  });
   socket.on('disconnect', () => {
     log(`User disconnected: ${socket.id}`);
     users = users.filter(user => user !== socket.id);

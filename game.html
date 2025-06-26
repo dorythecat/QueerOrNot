@@ -61,6 +61,10 @@
         }
       });
 
+      if (cookies.queer) {
+        socket.emit('pair');
+      }
+
       var form = document.getElementById('chatform');
       var input = document.getElementById('chatinput');
 
@@ -122,6 +126,21 @@
 
         messages.innerHTML = ''; // Clear chat messages
       });
+
+      function startGame(isQueer) {
+        const activeElement = document.getElementsByClassName("game active")[0];
+        const waitingElement = document.getElementsByClassName("game waiting")[0];
+        if (activeElement) {
+          activeElement.classList.remove("active");
+          activeElement.classList.add("inactive");
+        }
+        if (waitingElement) {
+          waitingElement.classList.add("active");
+        }
+
+        document.cookie = "queer=" + (isQueer ? "true" : "false");
+        socket.emit('pair');
+      }
 
       function endGame(isQueer) {
         alert('You guessed ' + (isQueer === (cookies.queer === 'true') ? 'correctly' : 'wrong') + '!');
