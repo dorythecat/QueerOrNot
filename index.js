@@ -16,9 +16,7 @@ const port = 8080; // Change this to your desired port
 async function log(message) {
   const timestamp = new Date().toISOString();
   fs.appendFile(logFile, `[${timestamp}] - ${message}\n`, (err) => {
-    if (err) {
-      console.error(`Error writing to log file: ${err}`);
-    }
+    if (err) console.error(`Error writing to log file: ${err}`);
   });
   if (debugMode) console.log(`[${timestamp}] - ${message}`);
 }

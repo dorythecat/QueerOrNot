@@ -49,9 +49,7 @@
           activeElement.classList.remove('active');
           activeElement.classList.add('inactive');
         }
-        if (waitingElement) {
-          waitingElement.classList.add('active');
-        }
+        if (waitingElement) waitingElement.classList.add('active');
       }
 
       var socket = io(window.location.host, {
@@ -61,9 +59,7 @@
         }
       });
 
-      if (cookies.queer) {
-        socket.emit('pair');
-      }
+      if (cookies.queer) socket.emit('pair');
 
       var form = document.getElementById('chatform');
       var input = document.getElementById('chatinput');
@@ -76,7 +72,7 @@
         socket.emit('chat message', input.value);
         lastMessage = input.value;
 
-        var item = document.createElement('li');
+        let item = document.createElement('li');
         item.id = 'own';
         item.textContent = input.value;
         messages.appendChild(item);
@@ -90,7 +86,7 @@
           lastMessage = '';
           return;
         }
-        var item = document.createElement('li');
+        let item = document.createElement('li');
         item.textContent = msg;
         messages.appendChild(item);
 
@@ -134,9 +130,7 @@
           activeElement.classList.remove("active");
           activeElement.classList.add("inactive");
         }
-        if (waitingElement) {
-          waitingElement.classList.add("active");
-        }
+        if (waitingElement) waitingElement.classList.add("active");
 
         document.cookie = "queer=" + (isQueer ? "true" : "false");
         socket.emit('pair');
