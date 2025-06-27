@@ -193,6 +193,32 @@ li#own {
   text-align: right;
 }
 
+.loader {
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2vw;
+  background: radial-gradient(ellipse closest-side,#000,#0000) right/calc(200% - 1em) 100%;
+  animation: loader 2s infinite alternate linear;
+}
+.loader::before {
+  content: "Waiting for other players...";
+  line-height: 1em;
+  color: #0000;
+  background: inherit;
+  background-image: radial-gradient(ellipse closest-side,#0FFF50,#000);
+  -webkit-background-clip:text;
+          background-clip:text;
+}
+
+@keyframes loader {
+  100%{background-position: left}
+}
+
 @media (max-width: 1400px) {
   a.mainpage {
     float: none;
@@ -243,29 +269,10 @@ li#own {
     width: 100%;
     left: 0;
   }
-}
 
-.loader {
-  width: fit-content;
-  font-weight: bold;
-  font-family: monospace;
-  font-size: 3vw;
-  position: fixed;
-  top: 25%;
-  left: 25%;
-  background: radial-gradient(ellipse closest-side,#000,#0000) right/calc(200% - 1em) 100%;
-  animation: l24 2s infinite alternate linear;
-}
-.loader::before {
-  content: "Waiting for other players...";
-  line-height: 1em;
-  color: #0000;
-  background: inherit;
-  background-image: radial-gradient(ellipse closest-side,#0FFF50,#000);
-  -webkit-background-clip:text;
-          background-clip:text;
-}
-
-@keyframes l24{
-  100%{background-position: left}
+  .loader {
+    font-size: 4vw;
+    left: 10%;
+    transform: translate(10%, -50%);
+  }
 }
