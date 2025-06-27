@@ -21,6 +21,7 @@
     </div>
 
     <div class="game inactive">
+      <p id="counter"></p>
       <button class="report" onclick="report()">Report</button>
       <ul id="messages"></ul>
       <form id="chatform" action="javascript:void(0);">
@@ -138,6 +139,15 @@
           window.location.reload();
         } else alert("Report cancelled.");
       }
+
+      var counter = 59;
+      const counterElement = document.getElementById('counter');
+      setInterval(function() {
+        if (counter > 0) {
+          counterElement.textContent = counter + " seconds left";
+          counter--;
+        }
+      }, 1000);
     </script>
   </body>
 </html>
