@@ -59,12 +59,12 @@ a.mainpage {
   color: #0FFF50;
 }
 
-div.left {
+.left {
   float: left;
   margin: 5px 20px;
 }
 
-div.right {
+.right {
   float: right;
   margin: 5px 20px;
 }
