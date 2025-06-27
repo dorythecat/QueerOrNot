@@ -89,8 +89,6 @@
         let item = document.createElement('li');
         item.textContent = msg;
         messages.appendChild(item);
-
-        console.log('Received message:', msg, 'Is queer:', isQueer);
       });
 
       socket.on('pair', function(pair) {
