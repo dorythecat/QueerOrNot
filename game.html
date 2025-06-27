@@ -42,15 +42,6 @@
         acc[name] = value;
         return acc;
       }, {});
-      if (cookies.queer) {
-        const activeElement = document.getElementsByClassName('game active')[0];
-        const waitingElement = document.getElementsByClassName('game waiting')[0];
-        if (activeElement) {
-          activeElement.classList.remove('active');
-          activeElement.classList.add('inactive');
-        }
-        if (waitingElement) waitingElement.classList.add('active');
-      }
 
       var socket = io(window.location.host, {
         reconnectionDelayMax: 10000,
@@ -59,7 +50,7 @@
         }
       });
 
-      if (cookies.queer) socket.emit('pair');
+      if (cookies.queer) startGame(cookies.queer === 'true');
 
       var form = document.getElementById('chatform');
       var input = document.getElementById('chatinput');
