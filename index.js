@@ -89,8 +89,7 @@ io.on('connection', (socket) => {
       fs.appendFile(reportFile, `Report from ${ip} against ${partnerIp}: ${message}\n`, (err) => {
         if (err) console.error(`Error writing to report file: ${err}`);
 
-        unpairedUsers.push(socket.id, partnerId);
-        io.to(socket.id).emit('unpair', {});
+        unpairedUsers.push(socket.id);
         io.to(partnerId).emit('unpair', {});
         pairs = pairs.filter(p => p.user1 !== socket.id && p.user2 !== socket.id);
         log(`Unpaired ${ip} and ${partnerIp} (report filed)`);

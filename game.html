@@ -146,6 +146,7 @@
         if (reportText) {
           socket.emit('report', reportText);
           alert("Thank you for your report!");
+          window.location.reload();
         } else alert("Report cancelled.");
       }
     </script>
