@@ -50,7 +50,6 @@ io.on('connection', (socket) => {
         const pairIndex = pairs.findIndex(pair => pair.user1 === user1 && pair.user2 === user2);
         if (pairIndex !== -1) {
           pairs.splice(pairIndex, 1);
-          unpairedUsers.push(user1, user2);
           io.to(user1).emit('unpair', {});
           io.to(user2).emit('unpair', {});
           log(`Unpaired ${user1} and ${user2} (timeout)`);
