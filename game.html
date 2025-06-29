@@ -63,6 +63,7 @@
       });
 
       if (cookies.queer) startGame(cookies.queer === 'true');
+      var otherIsQueer = 'undefined';
 
       var form = document.getElementById('chatform');
       var input = document.getElementById('chatinput');
@@ -92,6 +93,8 @@
         let item = document.createElement('li');
         item.textContent = msg;
         messages.appendChild(item);
+
+        otherIsQueer = isQueer === 'true';
       });
 
       socket.on('pair', function(pair) {
@@ -100,6 +103,12 @@
       });
 
       socket.on('unpair', function() {
+        if (otherIsQueer === 'undefined') {
+          alert("You were unpaired before you could play. Please try again.");
+          window.location.reload();
+          return;
+        }
+
         setActive(document.getElementsByClassName('game active')[0], false);
         setActive(document.getElementsByClassName('game result')[0], true);
 
@@ -115,13 +124,12 @@
       }
 
       function endGame(isQueer) {
-        alert('You guessed ' + (isQueer === (cookies.queer === 'true') ? 'correctly' : 'wrong') + '!');
+        alert("You guessed " + (isQueer === otherIsQueer ? "correctly!" : "incorrectly!"));
         window.location.reload();
       }
 
       function report() {
-        const reportText = prompt("Please enter your report:");
-        if (reportText) {
+        if (prompt("Please enter your report:") !== null) {
           socket.emit('report', reportText);
           alert("Thank you for your report!");
           window.location.reload();
@@ -131,10 +139,9 @@
       var counter = 59;
       const counterElement = document.getElementById('counter');
       setInterval(function() {
-        if (counter > 0) {
-          counterElement.textContent = counter + " seconds left";
-          counter--;
-        }
+        if (counter <= 0) return; // Theoretically, this should never happen
+        counterElement.textContent = counter + " seconds left";
+        counter--;
       }, 1000);
     </script>
   </body>
