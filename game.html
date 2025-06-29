@@ -38,6 +38,17 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
+      function setActive(element, active) {
+        if (!element) return; // Just in case...
+        if (active) {
+          element.classList.add('active');
+          element.classList.remove('inactive');
+        } else {
+          element.classList.add('inactive');
+          element.classList.remove('active');
+        }
+      }
+
       let cookies = document.cookie.split(';').reduce((acc, cookie) => {
         const [name, value] = cookie.trim().split('=');
         acc[name] = value;
@@ -84,43 +95,20 @@
       });
 
       socket.on('pair', function(pair) {
-        const waitingElement = document.getElementsByClassName('game waiting')[0];
-        const inactiveElement = document.getElementsByClassName('game inactive')[1];
-        if (waitingElement) {
-          waitingElement.classList.remove('active');
-          waitingElement.classList.add('inactive');
-        }
-
-        if (inactiveElement) {
-          inactiveElement.classList.remove('inactive');
-          inactiveElement.classList.add('active');
-        }
+        setActive(document.getElementsByClassName('game inactive')[1], true);
+        setActive(document.getElementsByClassName('game waiting')[0], false);
       });
 
       socket.on('unpair', function() {
-        const activeElement = document.getElementsByClassName('game active')[0];
-        const resultElement = document.getElementsByClassName('game result')[0];
-
-        if (activeElement) {
-          activeElement.classList.remove('active');
-          activeElement.classList.add('inactive');
-        }
-        if (resultElement) {
-          resultElement.classList.remove('inactive');
-          resultElement.classList.add('active');
-        }
+        setActive(document.getElementsByClassName('game active')[0], false);
+        setActive(document.getElementsByClassName('game result')[0], true);
 
         messages.innerHTML = ''; // Clear chat messages
       });
 
       function startGame(isQueer) {
-        const activeElement = document.getElementsByClassName("game active")[0];
-        const waitingElement = document.getElementsByClassName("game waiting")[0];
-        if (activeElement) {
-          activeElement.classList.remove("active");
-          activeElement.classList.add("inactive");
-        }
-        if (waitingElement) waitingElement.classList.add("active");
+        setActive(document.getElementsByClassName('game active')[0], false);
+        setActive(document.getElementsByClassName('game waiting')[0], true);
 
         document.cookie = "queer=" + (isQueer ? "true" : "false");
         socket.emit('pair');
