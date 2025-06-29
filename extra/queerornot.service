@@ -3,7 +3,7 @@ Description=Queer or Not webserver
 After=network.target
 
 [Service]
-ExecSart=/usr/bin/node /QueerOrNot
+ExecStart=/usr/bin/node /QueerOrNot/index.js
 Restart=always
 
 [Install]
