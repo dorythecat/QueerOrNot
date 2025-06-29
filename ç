@@ -270,7 +270,7 @@ li#own {
     left: 0;
     top: 25%;
     bottom: 10%;
-    max-height: 65%;
+    max-height: 60%;
   }
 
   .loader {
