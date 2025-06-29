@@ -129,11 +129,12 @@
       }
 
       function report() {
-        if (prompt("Please enter your report:") !== null) {
+        var reportText = prompt("Please enter your report:");
+        if (reportText !== null && reportText.trim() !== "") {
           socket.emit('report', reportText);
           alert("Thank you for your report!");
           window.location.reload();
-        } else alert("Report cancelled.");
+        } alert("Report cancelled.");
       }
 
       var counter = 59;
