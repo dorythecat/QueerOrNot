@@ -15,3 +15,16 @@ node index.js
 ```
 
 After this, you'll be abe to acess the game at `http://localhost:3000`. You can also deploy this app to a cloud service, but I haven't personally tested that.
+
+# Running as a service
+Queer or Not includes a template for running the app as a service in Linux-based systems using systemd. To set this up, first, copy the `queerornot.service` file to `/etc/systemd/system`:
+
+```cp extra/queerornot.service /etc/systemd/system/```
+
+Then, edit the file with your favourite editor so that the `ExecOnce=/usr/bin/node /QueerOrNot/index.js` line points to the correct path of the `index.js` file in your cloned repository. After that, you can start the service with the command:
+
+```sudo systemctl start queerornot```
+
+You can also enable the service to start on boot with:
+
+```sudo systemctl enable queerornot```
