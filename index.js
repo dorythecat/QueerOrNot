@@ -86,7 +86,7 @@ io.on('connection', (socket) => {
       const partnerId = pair.user1 === socket.id ? pair.user2 : pair.user1;
       const partnerIp = io.sockets.sockets.get(partnerId)?.handshake.address || 'unknown';
       fs.appendFile(reportFile, `Report from ${ip} against ${partnerIp}: ${message}\n`, (err) => {
-        if (err) console.error(`EEEOR: Unable to write to reports file: ${err}`);
+        if (err) console.error(`ERROR: Unable to write to reports file: ${err}`);
 
         unpairedUsers.push(socket.id);
         io.to(partnerId).emit('unpair', {});
