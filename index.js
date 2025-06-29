@@ -98,7 +98,9 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port, () => {
-  console.log(`listening on *:${port}`);
-  console.log(`Open http://localhost:${port} in your browser to test the app`);
+  if (debugMode) {
+    console.log(`listening on *:${port}`);
+    console.log(`Open http://localhost:${port} in your browser to test the app`);
+  }
   log(`Server started on port ${port} successfully`);
 });
