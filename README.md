@@ -14,4 +14,4 @@ npm install
 node index.js
 ```
 
-After this, you'll be abe to acess the game at `http://localhost:8080`. You can also deploy this app to a cloud service, but I haven't personally tested that.
+After this, you'll be abe to acess the game at `http://localhost:3000`. You can also deploy this app to a cloud service, but I haven't personally tested that.
