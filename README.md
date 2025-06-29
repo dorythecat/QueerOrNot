@@ -28,3 +28,7 @@ Then, edit the file with your favourite editor so that the `ExecOnce=/usr/bin/no
 You can also enable the service to start on boot with:
 
 ```sudo systemctl enable queerornot```
+
+Remmeber that running this app as a service will put the server log and reports file on your system's `/` directory, so you might want to change the paths in the service file to point to a different directory if you don't want to clutter your root directory.
+
+Obviously, some computer knowledge is vastly recommended to set this up, of course...
