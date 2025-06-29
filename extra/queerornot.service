@@ -1,0 +1,10 @@
+[Unit]
+Description=Queer or Not webserver
+After=network.target
+
+[Service]
+ExecSart=/usr/bin/node /QueerOrNot
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
