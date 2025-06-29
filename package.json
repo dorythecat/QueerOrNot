@@ -1,7 +1,7 @@
 {
   "name": "queer-or-not",
   "version": "1.0.0",
-  "description": "The social deduction game abou queerness",
+  "description": "The social deduction game about queerness",
   "dependencies": {
     "express": "^5.1.0",
     "socket.io": "^4.8.1"
