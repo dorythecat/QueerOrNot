@@ -12,7 +12,7 @@ const maxPairedTime = 60 * 1000; // 1 minute in ms
 const debugMode = false; // Set to true to enable debug logging
 const logFile = 'server.log'; // Log file to store server logs
 const reportFile = 'reports.txt'; // File to store user reports
-const port = 8080; // Change this to your desired port
+const port = 3000; // Change this to your desired port
 
 async function log(message) {
   const timestamp = new Date().toISOString();
